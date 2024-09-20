@@ -34,7 +34,7 @@
 
 -(NSArray*) imageNames{
     if(!_imageNames)
-        _imageNames = @[@"Bill",@"Eric",@"Jeff",@"StandingCat",@"StandingBowCat",@"CloseUpCat"];
+        _imageNames = @[@"Bob",@"Carl",@"Dave",@"Kevin",@"Stuart"];
     
     return _imageNames;
 }
@@ -54,12 +54,11 @@
 -(NSDictionary*) imagesDict{
     if(!_imagesDict) {
         _imagesDict = @{
-            @"Bill": [UIImage imageNamed:@"Bill"],
-            @"Eric": [UIImage imageNamed:@"Eric"],
-            @"Jeff": [UIImage imageNamed:@"Jeff"],
-            @"StandingCat": [UIImage imageNamed:@"StandingCat"],
-            @"StandingBowCat": [UIImage imageNamed:@"StandingBowCat"],
-            @"CloseUpCat": [UIImage imageNamed:@"CloseUpCat"]
+            @"Bob": [UIImage imageNamed:@"Bob"],
+            @"Carl": [UIImage imageNamed:@"Carl"],
+            @"Dave": [UIImage imageNamed:@"Dave"],
+            @"Kevin": [UIImage imageNamed:@"Kevin"],
+            @"Stuart": [UIImage imageNamed:@"Stuart"]
         };
         
     }
