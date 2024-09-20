@@ -33,6 +33,7 @@ class TableViewController: UITableViewController {
         
         return 1
     }
+    
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,16 +60,14 @@ class TableViewController: UITableViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-        
-        if let vc = segue.destination as? ViewController,
+        if let vc = segue.destination as? ImageViewController, // Now using ImageViewController
            let cell = sender as? UITableViewCell,
            let name = cell.textLabel?.text {
-                vc.displayImageName = name
+               vc.displayImageName = name
         }
     }
-    
+
 
 }
