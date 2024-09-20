@@ -18,36 +18,22 @@ class ViewController: UIViewController, UIScrollViewDelegate {
     }()
     
     @IBOutlet weak var titleLabel: UILabel!
-    //@IBOutlet weak var scrollView: UIScrollView!
     
     @IBAction func viewDirectoryButton(_ sender: UIButton) {
     }
     
+    @IBAction func viewBananaStocksButton(_ sender: UIButton) {
+        // segue is handled by the storyboard connection
+    }
+
     
-    var displayImageName = "Eric"
+    var displayImageName = "Bob"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        // Do any additional setup after loading the view.
-//
-//        if let size = self.imageView?.image?.size{
-//            self.scrollView.addSubview(self.imageView!)
-//            self.scrollView.contentSize = size
-//            self.scrollView.minimumZoomScale = 0.1
-//            self.scrollView.delegate = self
-//        }
-//        
-    }
-
-
+      
 
     
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.imageView
-    }
-    
-    
-
+}
 
 }
