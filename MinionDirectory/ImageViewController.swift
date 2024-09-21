@@ -8,6 +8,8 @@
 import UIKit
 
 class ImageViewController: UIViewController {
+    
+    var minion: Minion?
 
     @IBOutlet weak var scrollView: UIScrollView!  // Connect ScrollView
     @IBOutlet weak var contentView: UIView!  // Connect ContentView
@@ -24,21 +26,11 @@ class ImageViewController: UIViewController {
         setupConstraints()
 
 
-        // Load the image
-        if let imageName = displayImageName {
-            minionImageView.image = UIImage(named: imageName)
-        }
-
-        // Load the minion's name
-        if let name = displayMinionName {
-            minionNameLabel.text = name
-            minionNameLabel.font = UIFont.boldSystemFont(ofSize: 30)  // Customize font size/style
-        }
-
-        // Load the text description
-        if let descriptionText = displayMinionDescription {
-            minionDescriptionTextView.text = descriptionText
-        }
+        if let minion = minion {
+                minionNameLabel.text = minion.name
+                minionImageView.image = UIImage(named: minion.imageName)
+                minionDescriptionTextView.text = minion.description
+            }
         
     }
     

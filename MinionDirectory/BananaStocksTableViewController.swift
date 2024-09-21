@@ -32,7 +32,7 @@ class BananaStocksTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Dequeue a cell with the identifier "StockCell" and cast it to UITableViewCell
+        // Dequeue a cell with the identifier "StockCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: "StockCell", for: indexPath)
         
         // Get the stock data for the current row
@@ -41,35 +41,29 @@ class BananaStocksTableViewController: UITableViewController {
         // Set the company name in the textLabel (left-aligned)
         cell.textLabel?.text = stock.company
         
-        // Set the price in the detailTextLabel (right-aligned)
-        cell.detailTextLabel?.text = "Current Price: $\(stock.price)"
+        // Safely convert the price string to a double
+        if let priceDouble = Double(stock.price) {
+            // Format the price with 2 decimals and a $ sign
+            let formattedPrice = String(format: "$%.2f", priceDouble)
+            
+            // Set the price in the detailTextLabel (right-aligned)
+            cell.detailTextLabel?.text = "Current Price: \(formattedPrice)"
+        } else {
+            // Handle the case where price is not a valid double
+            cell.detailTextLabel?.text = "Price not available"
+        }
         
         return cell
     }
 
-
-
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "StockCell", for: indexPath)
-//        let stock = stocks[indexPath.row]
-//        
-//        // currency formatter
-//        let formatter = NumberFormatter()
-//        formatter.numberStyle = .currency  // set the formatter to currency style
-//
-//        // try to convert price string to a double
-//        if let priceDouble = Double(stock.price) {
-//            // use formatter to display the price with currency symbol
-//            cell.textLabel?.text = "\(stock.company): Price \(formatter.string(from: NSNumber(value: priceDouble)) ?? stock.price)"
-//        } else {
-//            // fallback if price cannot be converted to a number
-//            cell.textLabel?.text = "\(stock.company): Price \(stock.price)"
-//        }
-//        
-//        return cell
-//    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // Set the back button title for the next view controller (StockDetailViewController)
+        let backItem = UIBarButtonItem()
+        backItem.title = "Banana Stocks"  // Set the back button title
+        navigationItem.backBarButtonItem = backItem
+        
         if segue.identifier == "showStockDetails",
            let destinationVC = segue.destination as? StockDetailViewController,
            let indexPath = tableView.indexPathForSelectedRow {
@@ -83,18 +77,39 @@ class BananaStocksTableViewController: UITableViewController {
             destinationVC.openPrice = selectedStock.openPrice
             destinationVC.percentChange = selectedStock.percentChange
         }
+        
     }
     
+    var isAlertPresented = false  // Add this to track if an alert is already presented
+
+    // Show API Limit Error
     func showAPILimitError() {
+        guard !isAlertPresented else { return }  // Avoid presenting a second alert
+        isAlertPresented = true
+        
         let alert = UIAlertController(title: "API Limit Reached", message: "You've reached the Alpha Vantage API limit for today. Please come back tomorrow.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.isAlertPresented = false
+        }))
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
+    // Show Network Error
     func showNetworkError() {
+        guard !isAlertPresented else { return }  // Avoid presenting a second alert
+        isAlertPresented = true
+        
         let alert = UIAlertController(title: "Network Error", message: "There was a problem fetching stock prices.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            self.isAlertPresented = false
+        }))
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
     }
 
     func fetchStockPrices() {
