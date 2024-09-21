@@ -24,13 +24,28 @@ class StockDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+                
         // Set the labels with the passed stock data
         companyNameLabel.text = companyName
         stockCodeLabel.text = stockCode
-        priceLabel.text = price
-        openPriceLabel.text = openPrice
+                
+        // Safely format the stock price with a $ sign and 2 decimals
+        if let priceString = price, let priceDouble = Double(priceString) {
+            let formattedPrice = String(format: "$%.2f", priceDouble)
+            priceLabel.text = "\(formattedPrice)"
+        } else {
+            priceLabel.text = "Price not available"
+        }
+            
+        // Safely format the open price with a $ sign and 2 decimals
+        if let openPriceString = openPrice, let openPriceDouble = Double(openPriceString) {
+            let formattedPrice = String(format: "$%.2f", openPriceDouble)
+            openPriceLabel.text = "\(formattedPrice)"
+        } else {
+            openPriceLabel.text = "Open price not available"
+        }
+                
         percentChangeLabel.text = percentChange
     }
+    
 }
