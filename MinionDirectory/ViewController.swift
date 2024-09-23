@@ -31,7 +31,8 @@ class ViewController: UIViewController {
         stopAudio()
         
     }
-    
+    @IBOutlet weak var clickMeButton: UIButton!
+
     @IBAction func soundButton(_ sender: UIButton) {
         playAudio()
     }
@@ -40,6 +41,7 @@ class ViewController: UIViewController {
         
         override func viewDidLoad() {
             super.viewDidLoad()
+            
             
             // Configure the audio session
             do {

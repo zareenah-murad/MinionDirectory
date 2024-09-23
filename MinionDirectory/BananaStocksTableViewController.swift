@@ -80,7 +80,7 @@ class BananaStocksTableViewController: UITableViewController {
             
             // Populate the stocks array with placeholder data ("N/A")
             stocks = stockSymbols.map { symbol in
-                return (company: companyName(for: symbol), price: "N/A", openPrice: "N/A", percentChange: "N/A", stockCode: symbol)
+                return (company: companyName(for: symbol), price: "$X.XX", openPrice: "$X.XX", percentChange: "N/A", stockCode: symbol)
             }
             
             DispatchQueue.main.async {
