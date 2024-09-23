@@ -20,8 +20,7 @@ class StockDetailViewController: UIViewController, UITableViewDelegate, UITableV
     
     @IBOutlet weak var stockDetailsTableView: UITableView!
     
-    @IBAction func clickMeButton(_ sender: UIButton) {
-    }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
